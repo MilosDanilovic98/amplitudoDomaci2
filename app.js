@@ -90,7 +90,7 @@ function getUserInput() {
 function validate(movie) {
   valid = true;
   // Ovo sam uradio ovako da bih sprijecio unosenje praznih stringova kao ime a ne samo "" stringove
-  if (/^\s+$/.test(movie.name) || movie.name === "") {
+  if (/^\s+$/.test(movie.name)) {
     alert("Please put in a valid name");
     return false;
   }
@@ -100,10 +100,9 @@ function validate(movie) {
     return false;
   }
 
-  // Ovo sam uradio ovako da bih sprijecio unosenje praznih stringova kao ime a ne samo "" stringove
   let test = false;
   movie.actors.forEach((element) => {
-    if (movie.actors[0] === "" || /^\s+$/.test(element)) {
+    if (/^\s+$/.test(element)) {
       alert("Please input valid actor names");
       test = true;
     }
@@ -120,10 +119,17 @@ function addNewMovie() {
   if (validate(newMovie)) {
     movies.push(newMovie);
   }
-
+  document.getElementById("movie_form").reset();
   displayMovies();
 }
 displayMovies();
-document
-  .getElementById("submit")
-  .addEventListener("click", () => addNewMovie());
+// document
+//   .getElementById("submit")
+//   .addEventListener("click", () => addNewMovie());
+
+function clearForm() {}
+
+document.getElementById("movie_form").addEventListener("submit", (e) => {
+  e.preventDefault();
+  addNewMovie();
+});
